@@ -42,6 +42,31 @@ $(document).ready(function () {
         $("#trainInfoPanel").append($("<div>").addClass("panel-heading").attr("id","panelHeading"));
         // $("#panelHeading").append($("<h3>").addClass("panel-title").attr("id","trainPanelTitle").html("<strong>Add Train</strong>"));
         $("#trainInfoPanel").append($("<div>").addClass("panel-body").attr("id","trainPanelBody"));
+
+        $('#trainPanelBody').append($("<div>").addClass("panel-heading").attr("id","form-heading"));
+        $('#form-heading').append($("<h3>").addClass("panel-title").attr("id","panelTitle").html("<strong>Add Employee</strong>"));
+        
+        $("#trainPanelBody").append($("<form>").attr("id","trainForm"));
+        $("#trainForm").append($('<div>').addClass("form-group").attr("id", 'form-group1'));
+        $('#form-group1').append($("<label>").attr("for", "employee-name").html("Employee Name"));
+        $('#form-group1').append($("<input>").addClass("form-control").attr("id", "employee-name"));
+        
+        $("#trainForm").append($('<div>').addClass("form-group").attr("id", 'form-group1'));
+        $('#form-group1').append($("<label>").attr("for", "employee-role").html("Role"));
+        $('#form-group1').append($("<input>").addClass("form-control").attr("id", "employee-role"));
+
+        $("#trainForm").append($('<div>').addClass("form-group").attr("id", 'form-group1'));
+        $('#form-group1').append($("<label>").attr("for", "employee-startDate").html("Start Date (MM/DD/YYYY)"));
+        $('#form-group1').append($("<input>").addClass("form-control").attr("id", "employee-startDate"));
+
+        $("#trainForm").append($('<div>').addClass("form-group").attr("id", 'form-group1'));
+        $('#form-group1').append($("<label>").attr("for", "employee-monthlyRate").html("Monthly Rate"));
+        $('#form-group1').append($("<input>").addClass("form-control").attr("id", "employee-monthlyRate"));
+
+             $("#trainForm").append($("<button>").addClass("btn btn-primary btn-block").attr({id: "add-train-btn", type: "submit"}).html("Submit"));
+
+    }
+});
         
         $("#trainPanelBody").append($("<form>").attr("id","trainForm"));
         $("#trainForm").append($("<button>").addClass("btn btn-primary btn-block").attr({id: "add-train-btn", type: "submit"}).html("Add Employee"));
@@ -122,6 +147,5 @@ $(document).ready(function () {
   });
 
 });
-
 
 
