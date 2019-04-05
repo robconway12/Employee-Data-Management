@@ -44,7 +44,84 @@ $(document).ready(function () {
         $("#trainInfoPanel").append($("<div>").addClass("panel-body").attr("id","trainPanelBody"));
         
         $("#trainPanelBody").append($("<form>").attr("id","trainForm"));
-        $("#trainForm").append($("<button>").addClass("btn btn-primary btn-block").attr({id: "add-train-btn", type: "submit"}).html("Add Train Times"));
+        $("#trainForm").append($("<button>").addClass("btn btn-primary btn-block").attr({id: "add-train-btn", type: "submit"}).html("Add Employee"));
 
     }
+      // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCaGRbwU1SrfhHiZj3X_BpjPtEgOislx3M",
+    authDomain: "employeedata-7c4b8.firebaseapp.com",
+    databaseURL: "https://employeedata-7c4b8.firebaseio.com",
+    projectId: "employeedata-7c4b8",
+    storageBucket: "employeedata-7c4b8.appspot.com",
+    messagingSenderId: "31454540790"
+  };
+  firebase.initializeApp(config);
+
+  var dataRef = firebase.database();
+
+  // Initial Values
+  var name = "";
+  var role = "";
+  var start = "";
+  var rate = "";
+
+  // Capture Button Click
+  $("#add-user").on("click", function(event) {
+    event.preventDefault();
+
+    // YOUR TASK!!!
+    // Code in the logic for storing and retrieving the most recent user.
+    // Don't forget to provide initial data to your Firebase database.
+    name = $("#name-input").val().trim();
+    role = $("#email-input").val().trim();
+    start = $("#age-input").val().trim();
+    rate = $("#comment-input").val().trim();
+
+    // Code for the push
+    dataRef.ref().push({
+
+      name: name,
+      role: role,
+      start: start,
+      rate: rate,
+      dateAdded: firebase.database.ServerValue.TIMESTAMP
+    });
+  });
+
+  // Firebase watcher + initial loader HINT: This code behaves similarly to .on("value")
+  dataRef.ref().on("child_added", function(childSnapshot) {
+
+    // Log everything that's coming out of snapshot
+    console.log(childSnapshot.val().name);
+    console.log(childSnapshot.val().role);
+    console.log(childSnapshot.val().start);
+    console.log(childSnapshot.val().rate);
+    console.log(childSnapshot.val().dateAdded);
+
+    // full list of items to the well
+    $("#full-member-list").append("<div class='well'><span class='member-name'> " +
+      childSnapshot.val().name +
+      " </span><span class='member-email'> " + childSnapshot.val().email +
+      " </span><span class='member-age'> " + childSnapshot.val().age +
+      " </span><span class='member-comment'> " + childSnapshot.val().comment +
+      " </span></div>");
+
+    // Handle the errors
+  }, function(errorObject) {
+    console.log("Errors handled: " + errorObject.code);
+  });
+
+  dataRef.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function(snapshot) {
+    snap = snapshot.val()
+    // Change the HTML to reflect
+    $("#name-display").text(snap.name);
+    $("#role-display").text(snap.role);
+    $("#start-display").text(snap.start);
+    $("#date-display").text(snap.rate);
+  });
+
 });
+
+
+
